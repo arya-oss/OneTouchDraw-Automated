@@ -15,11 +15,12 @@ for i in range(V):
 	cnt = 0
 	for j in range(V):
 		if g[i][j] != 0:
-			cnt+=1
+			cnt += g[i][j]
 	degree[i] = cnt
 	if cnt % 2 == 1:
 		cnt_odd_degree += 1
 		index = i
+		
 # print degree
 if cnt_odd_degree != 0 and cnt_odd_degree != 2:
 	print 'error'
@@ -32,15 +33,15 @@ else:
 	path = []
 	while len(stack) != 0:
 		top = stack.pop()
-		# print top
 		if degree[top] == 0:
 			path.append(top)
 		else:
 			stack.append(top)
 			for x in range(V):
-				if g[top][x] == 1:
+				if g[top][x] != 0:
 					break
-			g[top][x] = g[x][top] = 0
+			g[top][x] -= 1
+			g[x][top] -= 1
 			degree[top] -= 1
 			degree[x] -= 1
 			stack.append(x)
